@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import UsersScreen from "./screens/UsersScreen";
 import ExperiencesScreen from "./screens/ExperiencesScreen";
 import HomeScreen from "./screens/HomeScreen";
+import SearchExperience from "./screens/SearchExperience";
 
 // Importa las imágenes de los iconos
 import iconoUsuarios from './assets/icons/user.jpg';
@@ -16,43 +17,45 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home" // Home pantalla inicial
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused }) => {
-            let iconSource;
+<Tab.Navigator
+  initialRouteName="Home"
+  screenOptions={({ route }) => ({
+    tabBarIcon: ({ focused }) => {
+      let iconSource;
 
-            if (route.name === 'Usuarios') {
-              iconSource = iconoUsuarios; 
-            } else if (route.name === 'Home') {
-              iconSource = iconoHome; 
-            } else if (route.name === 'Experiencias') {
-              iconSource = iconoExperiencias; 
-            }
+      if (route.name === "Usuarios") {
+        iconSource = iconoUsuarios;
+      } else if (route.name === "Home") {
+        iconSource = iconoHome;
+      } else if (route.name === "Experiencias") {
+        iconSource = iconoExperiencias;
+      } else if (route.name === "Buscar") {
+        iconSource = require("./assets/icons/search.png"); // Añadir un icono para búsqueda
+      }
 
-            // Reducir el tamaño del ícono si está seleccionado o no
-            return (
-              <Image
-                source={iconSource}
-                style={{
-                  width: focused ? 30 : 25,  
-                  height: focused ? 30 : 25, 
-                }}
-                resizeMode="contain" // Ajusta el icono dentro del contenedor
-              />
-            );
-          },
-          tabBarActiveTintColor: "#42f44b",  // Color del texto cuando está seleccionado
-          tabBarInactiveTintColor: "gray",   // Color del texto cuando no está seleccionado
-          tabBarStyle: {
-            display: "flex",                // Estilo de la barra
-          },
-        })}
-      >
-        <Tab.Screen name="Usuarios" component={UsersScreen} />
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Experiencias" component={ExperiencesScreen} />
-      </Tab.Navigator>
+      return (
+        <Image
+          source={iconSource}
+          style={{
+            width: focused ? 30 : 25,
+            height: focused ? 30 : 25,
+          }}
+          resizeMode="contain"
+        />
+      );
+    },
+    tabBarActiveTintColor: "#42f44b",
+    tabBarInactiveTintColor: "gray",
+    tabBarStyle: {
+      display: "flex",
+    },
+  })}
+>
+  <Tab.Screen name="Usuarios" component={UsersScreen} />
+  <Tab.Screen name="Home" component={HomeScreen} />
+  <Tab.Screen name="Experiencias" component={ExperiencesScreen} />
+  <Tab.Screen name="Buscar" component={SearchExperience} />
+</Tab.Navigator>;
     </NavigationContainer>
   );
 }

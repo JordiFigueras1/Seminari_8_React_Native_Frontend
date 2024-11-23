@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://10.0.2.2:3000/api/user"; 
-const EXPERIENCE_URL = "http://10.0.2.2:3000/api/experiencias";
+const API_URL = "http://localhost:3000/api/user"; 
+const EXPERIENCE_URL = "http://localhost:3000/api/experiencias";
 
 // Obtener un usuario por su ID
 export const fetchUserById = async (userId) => {
@@ -10,6 +10,17 @@ export const fetchUserById = async (userId) => {
     return response.data.name; 
   } catch (error) {
     console.error("Error al obtener el usuario:", error);
+    throw error;
+  }
+};
+
+// Buscar usuarios por nombre
+export const searchUsers = async (name) => {
+  try {
+    const response = await axios.get(`${API_URL}/search/${name}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error al buscar usuarios:", error);
     throw error;
   }
 };
@@ -63,3 +74,4 @@ export const deleteUser = async (userId) => {
     throw error;
   }
 };
+
